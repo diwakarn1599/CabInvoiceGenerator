@@ -82,6 +82,34 @@ namespace CanInvoiceTest
 
 
         }
+        /// <summary>
+        /// Test for aggregate fare 
+        /// </summary>
+        [TestMethod]
+        public void GetAggregateFare()
+        {
+            try
+            {
+                //Arrange
+                GenerateCabInvoice getInvoice = new GenerateCabInvoice(GenerateCabInvoice.RideType.NORMAL);
+                Ride[] cabRides = { new Ride(5, 10.6), new Ride(6, 10.6) }; 
+                double actual, expected = 223;
+                //Act
+                actual = getInvoice.GetAggregateFare(cabRides);
+
+                //Assert
+                Assert.AreEqual(actual, expected);
+
+            }
+            catch (CabInvoiceCustomException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+        }
+
+
 
 
     }
