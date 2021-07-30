@@ -33,6 +33,31 @@ namespace CanInvoiceTest
             
         }
         /// <summary>
+        /// Test for premium cab ride
+        /// </summary>
+        [TestMethod]
+        public void GetPremiumRideFare()
+        {
+            try
+            {
+                //Arrange
+                GenerateCabInvoice getInvoice = new GenerateCabInvoice(GenerateCabInvoice.RideType.PREMIUM);
+                int time = 5;
+                double distance = 10.6, actual, expected = 169;
+                //Act
+                actual = getInvoice.GetTotalFare(time, distance);
+                //Assert
+                Assert.AreEqual(actual, expected);
+
+            }
+            catch (CabInvoiceCustomException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+        }
+        /// <summary>
         /// Test for invalid time
         /// </summary>
         [TestMethod]

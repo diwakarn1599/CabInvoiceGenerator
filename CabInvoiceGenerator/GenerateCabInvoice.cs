@@ -25,6 +25,12 @@ namespace CabInvoiceGenerator
                 minimumCabFare = 5;
                 ratePerMin = 1;
             }
+            if (type.Equals(RideType.PREMIUM))
+            {
+                ratePerKm = 15;
+                minimumCabFare = 20;
+                ratePerMin = 2;
+            }
 
 
         }
