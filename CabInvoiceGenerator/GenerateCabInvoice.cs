@@ -71,6 +71,17 @@ namespace CabInvoiceGenerator
             }
             return aggFare;
         }
+        /// <summary>
+        /// Method to get Invoice summary
+        /// </summary>
+        /// <param name="cabRides"></param>
+        /// <returns></returns>
+        public string GetInvoiceSummary(Ride[] cabRides)
+        {
+            double totalFare = GetAggregateFare(cabRides);
+            InvoiceSummary summary = new InvoiceSummary(cabRides.Length,totalFare);
+            return $"Total number of rides = {summary.totalRides} \n TotalFare ={summary.totalFare} \n AverageFare = {summary.avgFare}";
+        }
 
         
     }
