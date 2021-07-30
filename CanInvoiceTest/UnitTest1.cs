@@ -145,9 +145,70 @@ namespace CanInvoiceTest
                 //Arrange
                 GenerateCabInvoice getInvoice = new GenerateCabInvoice(GenerateCabInvoice.RideType.NORMAL);
                 Ride[] cabRides = { new Ride(5, 10.6), new Ride(6, 10.6) };
-                string actual, expected = "Total number of rides = 2 \n TotalFare =223 \n AverageFare = 111.5";
+                string actual, expected = "Total number of rides = 2 \nTotalFare =223 \nAverageFare = 111.5";
                 //Act
                 actual = getInvoice.GetInvoiceSummary(cabRides);
+
+                //Assert
+                Assert.AreEqual(actual, expected);
+
+            }
+            catch (CabInvoiceCustomException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+        }
+
+        /// <summary>
+        /// Test for search user based on id
+        /// </summary>
+        [TestMethod]
+        public void SearchUser()
+        {
+            try
+            {
+                //Arrange
+                //array for rides
+                Ride[] cabRides = { new Ride(5, 10.6), new Ride(6, 10.6) };
+                RideRepository rideRepository = new RideRepository();
+                //add summary to dictonaries
+                rideRepository.AddUserToDIctionary(001, cabRides, GenerateCabInvoice.RideType.NORMAL);
+                rideRepository.AddUserToDIctionary(001, cabRides, GenerateCabInvoice.RideType.PREMIUM);
+                rideRepository.AddUserToDIctionary(002, cabRides, GenerateCabInvoice.RideType.PREMIUM);
+                string actual, expected = "User Id :-1\nNormal\nTotal number of rides = 2\nTotalFare = 223\nAverageFare = 111.5\n*****************\nPremium\nTotal number of rides = 2\nTotalFare = 340\nAverageFare = 170\n*****************\n";
+                //Act
+                 actual = rideRepository.SearchUser(001);
+
+                //Assert
+                Assert.AreEqual(actual, expected);
+
+            }
+            catch (CabInvoiceCustomException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+        }
+        /// <summary>
+        /// Test for invalid user id
+        /// </summary>
+        [TestMethod]
+        public void SearchUserInvalidId()
+        {
+            try
+            {
+                //Arrange
+                Ride[] cabRides = { new Ride(5, 10.6), new Ride(6, 10.6) };
+                RideRepository rideRepository = new RideRepository();
+                rideRepository.AddUserToDIctionary(001, cabRides, GenerateCabInvoice.RideType.NORMAL);
+                rideRepository.AddUserToDIctionary(001, cabRides, GenerateCabInvoice.RideType.PREMIUM);
+                rideRepository.AddUserToDIctionary(002, cabRides, GenerateCabInvoice.RideType.PREMIUM);
+                string actual, expected = "User Id :-3 not found";
+                //Act
+                actual = rideRepository.SearchUser(003);
 
                 //Assert
                 Assert.AreEqual(actual, expected);

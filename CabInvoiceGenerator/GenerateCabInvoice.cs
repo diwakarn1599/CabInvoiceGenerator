@@ -86,7 +86,7 @@ namespace CabInvoiceGenerator
         {
             double totalFare = GetAggregateFare(cabRides);
             InvoiceSummary summary = new InvoiceSummary(cabRides.Length,totalFare);
-            return $"Total number of rides = {summary.totalRides} \n TotalFare ={summary.totalFare} \n AverageFare = {summary.avgFare}";
+            return $"Total number of rides = {summary.totalRides} \nTotalFare ={summary.totalFare} \nAverageFare = {summary.avgFare}";
         }
 
         
